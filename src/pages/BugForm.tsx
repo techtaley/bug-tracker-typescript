@@ -41,43 +41,38 @@ const BugForm: React.FC<BugFormProps> = ({ selectedBug }) => {
   //const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {  ?? why not the entire line?
     e.preventDefault();
 
-    const editedBug: Bug = {
-      id: formState.id,
-      name: formState.name,
-      desc: formState.desc,
-      assignTo: formState.assignTo,
-      completed: formState.completed,
-      date: formState.date
-    }
-
     if (selectedBug) {  //send updated of selectedBug to store
-      dispatch(updateBug(editedBug))
-    } else {
-      dispatch(addBug({        
-        id: nanoid(),
+
+      const editedBug: Bug = {
+        id: formState.id,
         name: formState.name,
         desc: formState.desc,
         assignTo: formState.assignTo,
         completed: formState.completed,
-        date: formState.date   
-      })); // Dispatch add action with a new id
-
-      // dispatch(addBug({
+        date: formState.date
+      }
+  
+      dispatch(updateBug(editedBug))
+    } else {
+      // dispatch(addBug({        
       //   id: nanoid(),
-      //   ...formState
-      // }))
+      //   name: formState.name,
+      //   desc: formState.desc,
+      //   assignTo: formState.assignTo,
+      //   completed: formState.completed,
+      //   date: formState.date   
+      // })); // Dispatch add action with a new id
+
+      dispatch(addBug({        
+        ...formState,
+        id: nanoid(),
+      }))
     }
 
     setTimeout(() => {
       navigate('/');
     }, 2000);
 
-    // //Reset form
-    // setName('');
-    // setDesc('');
-    // setAssignTo('');
-    // setCompleted(false);
-    // setDate(new Date().toISOString().split('T')[0]);
   };
 
   return (
@@ -126,7 +121,6 @@ const BugForm: React.FC<BugFormProps> = ({ selectedBug }) => {
           onChange={() => setFormState({...formState, completed: !formState.completed})}        
         />
       </label>
-      {/* <button type="submit">Add Bug</button> */}
       {/* if there is an existing but show edit button - if edit is clicked */}
       <button type="submit">{selectedBug ? "Update" : "Add"}</button>
     </form>

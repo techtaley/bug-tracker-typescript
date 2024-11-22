@@ -22,16 +22,11 @@ import BugForm from './BugForm.tsx';
 
         const  bugId = useParams().id;         
 
-        // // //get bug with id equal to bug selected for edit 
-        // const bugs = useSelector((state: RootState) => state.bugs.entries);
-        // const selectedBug = bugs.find((bug:Bug) => bug.id === bugId)  //both strings   
-
+        //get bug with id equal to bug selected for edit 
         const bugs = useSelector((state: RootState) => state.bugs.entries)
         const selectedBug = bugs.find(bug => bug.id === bugId);
 
-        console.log("bugToEdit", selectedBug)
-        //console.log("bugId", bugId)
-
+        //*****outdated approach*******    
         // const [updateName, setUpdateName] = useState(existingBug.name)
         // const [updateDesc, setUpdateDesc] = useState(existingBug.desc)
         // const [updateAssignTo, setUpdateAssignTo] = useState(existingBug.assignTo)
@@ -67,30 +62,17 @@ import BugForm from './BugForm.tsx';
         //     }  
         //     dispatch(updateBug({editedBug}))  
         // }    
-
+        //*****outdated approach*******
+        
         return (
             <div>
                 <h1>Edit Bug</h1>
-                {/* <BugForm selectedBug={selectedBug} />  */}
                 {selectedBug ? (  //if selected from BugList to edit, then display in form
                     <BugForm selectedBug={selectedBug} />
                 ) : (
                     <p>Bug not found</p>
                 )}
-            </div>
-            
-            // <div key={params.id}>
-            //     <form onSubmit={handleUpdate}>
-            //         <input onChange={handleChange}>{updateName}</input>
-            //         <input onChange={handleChange}>{updateDesc}</input>
-            //         <input onChange={handleChange}>{updateAssignTo}</input>
-            //         <input>{updateCompleted ? 'Completed' : 'InComplete'}</input>
-            //         <input>{updateDate}</input>
-            //         <div>
-            //         <button type="submit">update</button>
-            //         </div>
-            //     </form>
-            // </div>          
+            </div>        
         )
     }
 
